@@ -1,0 +1,25 @@
+# 1. 忽略所有极其庞大的数据集（绝对不能传上 Git，会撑爆仓库！）
+data/
+dataset/
+*.csv
+*.json
+
+# 2. 忽略训练出来的模型权重文件（动辄几百兆）
+*.pt
+*.pth
+*.ckpt
+models/
+
+# 3. 忽略 Python 运行产生的垃圾缓存文件
+__pycache__/
+*.pyc
+
+# 4. 忽略 Jupyter Notebook 的缓存
+.ipynb_checkpoints/
+
+# 5. 忽略可能包含密码的本地环境变量
+.env
+
+__MACOSX
+
+bert_w2c

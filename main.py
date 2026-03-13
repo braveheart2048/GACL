@@ -179,8 +179,8 @@ def train_GCN(x_test, x_train,lr, weight_decay,patience,n_epochs,batchsize,datan
 
     for epoch in range(n_epochs): 
         traindata_list, testdata_list = loadData(dataname, x_train, x_test, droprate=0.4) # T15 droprate = 0.1
-        train_loader = DataLoader(traindata_list, batch_size=batchsize, shuffle=True, num_workers=5)
-        test_loader = DataLoader(testdata_list, batch_size=batchsize, shuffle=True, num_workers=5)     
+        train_loader = DataLoader(traindata_list, batch_size=batchsize, shuffle=True, num_workers=0)
+        test_loader = DataLoader(testdata_list, batch_size=batchsize, shuffle=True, num_workers=0)     
         avg_loss = [] 
         avg_acc = []
         batch_idx = 0
@@ -302,7 +302,7 @@ n_epochs=200
 batchsize=120  
 datasetname='Twitter16' # (1)Twitter15  (2)pheme  (3)weibo
 #model="GCN" 
-device = th.device('cuda:4' if th.cuda.is_available() else 'cpu')
+device = th.device('cuda:0' if th.cuda.is_available() else 'cpu')
 test_accs = [] 
 NR_F1 = [] # NR
 FR_F1 = [] # FR

@@ -16,7 +16,7 @@ class EarlyStopping:
         self.F4 = 0
         self.val_loss_min = np.Inf
 
-    def __call__(self, val_loss, accs,F1,F2,F3,F4,model,modelname,str):
+    def __call__(self, val_loss, accs,F1,F2,F3,F4,model,modelname,dataname):
 
         score = (accs+F1+F2+F3+F4) /5
 
@@ -40,5 +40,16 @@ class EarlyStopping:
             self.F2 = F2
             self.F3 = F3
             self.F4 = F4
-            self.save_checkpoint(val_loss, model,modelname,str)
+            self.save_checkpoint(val_loss, model,modelname,dataname)
             self.counter = 0
+
+    def save_checkpoint(self, val_loss, model, modelname, dataname):
+        '''当综合评分提升时，保存模型'''
+        import torch
+        # 把模型名和数据集名拼起来当文件名，防止覆盖。比如 GACL_twitter16.pt
+        save_path = f"{modelname}_{dataname}.pt"
+        print(f"成绩破纪录啦！正在保存极品装备(模型) -> {save_path}")
+        # 真正执行写盘保存的操作
+        torch.save(model.state_dict(), save_path)
+        # 更新底层的 loss 记录
+        self.val_loss_min = val_loss
